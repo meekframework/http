@@ -35,7 +35,7 @@ abstract class Exception extends PhpException
      *
      * @param integer $statusCode A client error status code.
      * @param string $reasonPhrase A reason phrase for the status code.
-     * @param array[] $headers Headers to be sent along with the exception's response.
+     * @param string[][] $headers Headers to be sent along when preparing the exception's response.
      * @throws InvalidArgumentException If a client error status code was not provided.
      * @throws InvalidArgumentException If the reason phrase is empty.
      */
