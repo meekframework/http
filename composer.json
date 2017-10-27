@@ -1,0 +1,34 @@
+{
+    "name": "meekframework/http",
+    "type": "library",
+    "require": {
+        "php": "^7.1",
+        "psr/http-message": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.3",
+        "zendframework/zend-diactoros": "^1.6"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nathan Bishop",
+            "email": "nbish11@hotmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Meek\\Http\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Meek\\Http\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": [
+            "phpunit"
+        ]
+    }
+}
