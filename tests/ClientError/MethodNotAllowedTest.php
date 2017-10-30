@@ -61,4 +61,16 @@ class MethodNotAllowedTest extends TestCase
 
         $this->assertEquals('Method Not Allowed', $methodNotAllowed->getReasonPhrase());
     }
+
+    /**
+     * @covers \Meek\Http\ClientError\MethodNotAllowed::__construct
+     */
+    public function testHeadersAreMergedCorrectly()
+    {
+        $methodNotAllowed = new MethodNotAllowed(['GET'], ['connection' => ['close']]);
+        $headers = $methodNotAllowed->getHeaders();
+
+        $this->assertArrayHasKey('allow', $headers);
+        $this->assertArrayHasKey('connection', $headers);
+    }
 }
