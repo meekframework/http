@@ -12,7 +12,7 @@ class UpgradeRequiredTest extends TestCase
      */
     public function testIsAClientError()
     {
-        $upgradeRequired = new UpgradeRequired('HTTP/3.0');
+        $upgradeRequired = new UpgradeRequired(['HTTP/3.0']);
 
         $this->assertInstanceOf(ClientError::class, $upgradeRequired);
     }
@@ -22,7 +22,7 @@ class UpgradeRequiredTest extends TestCase
      */
     public function testHasCorrectStatusCode()
     {
-        $upgradeRequired = new UpgradeRequired('HTTP/3.0');
+        $upgradeRequired = new UpgradeRequired(['HTTP/3.0']);
 
         $this->assertEquals(426, $upgradeRequired->getStatusCode());
     }
@@ -32,7 +32,7 @@ class UpgradeRequiredTest extends TestCase
      */
     public function testHasCorrectReasonPhrase()
     {
-        $upgradeRequired = new UpgradeRequired('HTTP/3.0');
+        $upgradeRequired = new UpgradeRequired(['HTTP/3.0']);
 
         $this->assertEquals('Upgrade Required', $upgradeRequired->getReasonPhrase());
     }
@@ -42,11 +42,36 @@ class UpgradeRequiredTest extends TestCase
      */
     public function testAddsUpgradeHeader()
     {
-        $protocol = 'HTTP/3.0';
-        $upgradeRequired = new UpgradeRequired($protocol);
+        $protocols = ['HTTP/2.0', 'SHTTP/1.3'];
+        $upgradeRequired = new UpgradeRequired($protocols);
         $headers = $upgradeRequired->getHeaders();
 
         $this->assertArrayHasKey('upgrade', $headers);
-        $this->assertContains($protocol, $headers['upgrade']);
+        $this->assertEquals($protocols, $headers['upgrade']);
+    }
+
+    /**
+     * @covers \Meek\Http\ClientError\UpgradeRequired::__construct
+     */
+    public function testSetsConnectionTypeToUpgrade()
+    {
+        $upgradeRequired = new UpgradeRequired(['HTTP/3.0']);
+        $headers = $upgradeRequired->getHeaders();
+
+        $this->assertArrayHasKey('connection', $headers);
+        $this->assertContains('upgrade', $headers['connection']);
+    }
+
+    /**
+     * @covers \Meek\Http\ClientError\UpgradeRequired::__construct
+     */
+    public function testHeadersAreMergedCorrectly()
+    {
+        $upgradeRequired = new UpgradeRequired(['HTTP/3.0'], ['host' => ['https://example.com']]);
+        $headers = $upgradeRequired->getHeaders();
+
+        $this->assertArrayHasKey('upgrade', $headers);
+        $this->assertArrayHasKey('connection', $headers);
+        $this->assertArrayHasKey('host', $headers);
     }
 }
