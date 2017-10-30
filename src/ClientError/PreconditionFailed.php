@@ -21,6 +21,6 @@ class PreconditionFailed extends ClientError
      */
     public function __construct(array $headers = [])
     {
-        parent::__construct(411, 'Precondition Failed', $headers);
+        parent::__construct(412, 'Precondition Failed', $headers);
     }
 }

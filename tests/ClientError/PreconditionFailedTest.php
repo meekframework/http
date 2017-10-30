@@ -24,7 +24,7 @@ class PreconditionFailedTest extends TestCase
     {
         $preconditionFailed = new PreconditionFailed();
 
-        $this->assertEquals(411, $preconditionFailed->getStatusCode());
+        $this->assertEquals(412, $preconditionFailed->getStatusCode());
     }
 
     /**
