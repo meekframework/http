@@ -32,7 +32,7 @@
             "phpunit"
         ],
         "generate": [
-            "phpdoc -d ./src -t ./docs"
+            "phpdoc -d ./src -t ./docs --template=responsive-twig"
         ]
     }
 }
