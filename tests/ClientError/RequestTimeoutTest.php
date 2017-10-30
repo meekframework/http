@@ -36,4 +36,28 @@ class RequestTimeoutTest extends TestCase
 
         $this->assertEquals('Request Timeout', $requestTimeout->getReasonPhrase());
     }
+
+    /**
+     * @covers \Meek\Http\ClientError\RequestTimeout::__construct
+     */
+    public function testSetsAConnectionCloseHeader()
+    {
+        $requestTimeout = new RequestTimeout();
+        $headers = $requestTimeout->getHeaders();
+
+        $this->assertArrayHasKey('connection', $headers);
+        $this->assertContains('close', $headers['connection']);
+    }
+
+    /**
+     * @covers \Meek\Http\ClientError\RequestTimeout::__construct
+     */
+    public function testHeadersAreMergedCorrectly()
+    {
+        $requestTimeout = new RequestTimeout(['host' => ['https://example.com']]);
+        $headers = $requestTimeout->getHeaders();
+
+        $this->assertArrayHasKey('connection', $headers);
+        $this->assertArrayHasKey('host', $headers);
+    }
 }

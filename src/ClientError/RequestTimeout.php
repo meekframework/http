@@ -21,6 +21,7 @@ class RequestTimeout extends ClientError
      */
     public function __construct(array $headers = [])
     {
+        $headers = array_merge($headers, ['connection' => ['close']]);
         parent::__construct(408, 'Request Timeout', $headers);
     }
 }
