@@ -25,7 +25,7 @@ class ServiceUnavailable extends ServerError
     {
         if ($retryAfter) {
             // RFC7231, Section 7.1.1: http://tools.ietf.org/html/rfc7231
-            $headers = array_merge(['retry-after' => [$retryAfter->format('D, d M Y H:i:s \G\M\T')]]);
+            $headers = array_merge($headers, ['retry-after' => [$retryAfter->format('D, d M Y H:i:s \G\M\T')]]);
         }
 
         parent::__construct(503, 'Service Unavailable', $headers);
