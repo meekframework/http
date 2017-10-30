@@ -5,7 +5,7 @@ namespace Meek\Http\ClientError;
 use Meek\Http\ClientError;
 
 /**
- * Exception class modeling a '451 Unavailable For Legal Reasons' client error.
+ * Exception modeling the '451 Unavailable For Legal Reasons' HTTP status response.
  *
  * @link https://tools.ietf.org/html/rfc7725#section-3
  * @author Nathan Bishop <nbish11@hotmail.com> (https://nathanbishop.name)
@@ -15,7 +15,7 @@ use Meek\Http\ClientError;
 class UnavailableForLegalReasons extends ClientError
 {
     /**
-     * Constructs a new 'Unavailable For Legal Reasons' exception.
+     * Construct a new 'Unavailable For Legal Reasons' exception.
      *
      * @param string $link A URI reference identifying the resource itself.
      * @param string[][] $headers Headers to be sent along with the prepared response.
