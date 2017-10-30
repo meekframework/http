@@ -79,4 +79,18 @@ class ServiceUnavailableTest extends TestCase
 
         $this->assertEquals('Service Unavailable', $serviceUnavailable->getReasonPhrase());
     }
+
+    /**
+     * @covers \Meek\Http\ServerError\ServiceUnavailable::__construct
+     */
+    public function testHeadersAreMergedCorrectly()
+    {
+        $timeZone = new DateTimeZone('UTC');
+        $retryAfter = new DateTime('Wed, 25 Oct 2017 13:00:00', $timeZone);
+        $serviceUnavailable = new ServiceUnavailable($retryAfter, ['connection' => ['close']]);
+        $headers = $serviceUnavailable->getHeaders();
+
+        $this->assertArrayHasKey('retry-after', $headers);
+        $this->assertArrayHasKey('connection', $headers);
+    }
 }
