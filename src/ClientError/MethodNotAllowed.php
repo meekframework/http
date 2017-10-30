@@ -23,7 +23,7 @@ class MethodNotAllowed extends ClientError
     public function __construct(array $allowedMethods, array $headers = [])
     {
         $allowedMethods = array_map('strtoupper', $allowedMethods);
-        $headers = array_merge(['allow' => $allowedMethods]);
+        $headers = array_merge($headers, ['allow' => $allowedMethods]);
 
         parent::__construct(405, 'Method Not Allowed', $headers);
     }
