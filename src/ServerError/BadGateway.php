@@ -5,8 +5,9 @@ namespace Meek\Http\ServerError;
 use Meek\Http\ServerError;
 
 /**
- * ...
+ * Exception modeling the '502 Bad Gateway' HTTP status response.
  *
+ * @see https://tools.ietf.org/html/rfc7231#section-6.6.3
  * @author Nathan Bishop <nbish11@hotmail.com> (https://nathanbishop.name)
  * @copyright 2016 Nathan Bishop
  * @license The MIT license.
@@ -14,9 +15,9 @@ use Meek\Http\ServerError;
 class BadGateway extends ServerError
 {
     /**
-     * Create a new 'bad gateway' exception.
+     * Construct a new 'Bad Gateway' exception.
      *
-     * @param string[][] $headers Headers to be sent along with the prepared response.
+     * @param string[][] $headers Additional headers associated with the exception.
      */
     public function __construct(array $headers = [])
     {
