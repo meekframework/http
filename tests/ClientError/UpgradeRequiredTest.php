@@ -12,7 +12,7 @@ class UpgradeRequiredTest extends TestCase
      */
     public function testIsAClientError()
     {
-        $upgradeRequired = new UpgradeRequired();
+        $upgradeRequired = new UpgradeRequired('HTTP/3.0');
 
         $this->assertInstanceOf(ClientError::class, $upgradeRequired);
     }
@@ -22,7 +22,7 @@ class UpgradeRequiredTest extends TestCase
      */
     public function testHasCorrectStatusCode()
     {
-        $upgradeRequired = new UpgradeRequired();
+        $upgradeRequired = new UpgradeRequired('HTTP/3.0');
 
         $this->assertEquals(426, $upgradeRequired->getStatusCode());
     }
@@ -32,8 +32,21 @@ class UpgradeRequiredTest extends TestCase
      */
     public function testHasCorrectReasonPhrase()
     {
-        $upgradeRequired = new UpgradeRequired();
+        $upgradeRequired = new UpgradeRequired('HTTP/3.0');
 
         $this->assertEquals('Upgrade Required', $upgradeRequired->getReasonPhrase());
+    }
+
+    /**
+     * @covers \Meek\Http\ClientError\UpgradeRequired::__construct
+     */
+    public function testAddsUpgradeHeader()
+    {
+        $protocol = 'HTTP/3.0';
+        $upgradeRequired = new UpgradeRequired($protocol);
+        $headers = $upgradeRequired->getHeaders();
+
+        $this->assertArrayHasKey('upgrade', $headers);
+        $this->assertContains($protocol, $headers['upgrade']);
     }
 }
