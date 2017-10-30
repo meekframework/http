@@ -22,7 +22,7 @@ class Unauthorized extends ClientError
      */
     public function __construct(string $challenge, array $headers = [])
     {
-        $headers = array_merge(['www-authenticate' => [$challenge]]);
+        $headers = array_merge($headers, ['www-authenticate' => [$challenge]]);
 
         parent::__construct(401, 'Unauthorized', $headers);
     }
