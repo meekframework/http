@@ -50,4 +50,17 @@ class UnauthorizedTest extends TestCase
 
         $this->assertEquals('Unauthorized', $unauthorized->getReasonPhrase());
     }
+
+    /**
+     * @covers \Meek\Http\ClientError\Unauthorized::__construct
+     */
+    public function testHeadersAreMergedCorrectly()
+    {
+        $challenge = 'Basic realm="MeekFramework"';
+        $unauthorized = new Unauthorized($challenge, ['connection' => ['close']]);
+        $headers = $unauthorized->getHeaders();
+
+        $this->assertArrayHasKey('www-authenticate', $headers);
+        $this->assertArrayHasKey('connection', $headers);
+    }
 }
