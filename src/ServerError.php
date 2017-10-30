@@ -5,8 +5,9 @@ namespace Meek\Http;
 use InvalidArgumentException;
 
 /**
- * Exception class used for sending HTTP server error response.
+ * Exception class modeling the 5xx (Server Error) class of HTTP status codes.
  *
+ * @see https://tools.ietf.org/html/rfc7231#section-6.6
  * @author Nathan Bishop <nbish11@hotmail.com> (https://nathanbishop.name)
  * @copyright 2016 Nathan Bishop
  * @license The MIT license.
@@ -14,7 +15,7 @@ use InvalidArgumentException;
 class ServerError extends Exception
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function assertStatusCodeIsInRange(int $statusCode): void
     {
